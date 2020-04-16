@@ -36,7 +36,7 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        self.vertices[vertex_id] = set()
+        self.vertices[vertex_id] = dict()
 
     def add_edge(self, v1, v2):
         """

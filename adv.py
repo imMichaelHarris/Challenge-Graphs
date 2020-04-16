@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-
+from graph import Queue, Stack, Graph
 import random
 from ast import literal_eval
 
@@ -29,12 +29,31 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
-
-
+graph = Graph()
+# Create graph
+# Populate graph by moving in direction and updating the adjacency list values
+queue = Queue()
+queue.enqueue([player.current_room])
 # TRAVERSAL TEST
 visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
+count = 0
+# while queue.size() > 0:
+while count < 5:
+    room = world.starting_room
+    graph.add_vertex(room.id)
+    for direction in room.get_exits():
+        print("Hi", direction)
+        print(room.get_room_in_direction(direction).id)
+        room.connect_rooms(direction, room.get_room_in_direction(direction))
+        room_id = room.get_room_in_direction(direction).id
+        if room_id not in graph.vertices:
+            print("Here")
+            graph.add_vertex(room_id)
+    print(graph.vertices)
+    count+= 1
+
 
 for move in traversal_path:
     player.travel(move)
